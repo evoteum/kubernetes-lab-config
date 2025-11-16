@@ -1,0 +1,33 @@
+# values/cilium.yaml
+
+# Enable kube-proxy replacement only if you want it
+kubeProxyReplacement: "partial"
+
+# Required for kubeadm clusters
+k8sServiceHost: "127.0.0.1"
+k8sServicePort: 6443
+
+# Enable Hubble (observability)
+hubble:
+  enabled: true
+  metrics:
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+
+# Security settings
+containerRuntime:
+  integration: auto
+
+# Cilium in metal installs typically need BPF mounts
+bpf:
+  hostRouting: true
+
+operator:
+  replicaCount: 1
