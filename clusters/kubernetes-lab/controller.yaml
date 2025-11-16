@@ -1,0 +1,31 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: TinkerbellMachineTemplate
+metadata:
+  name: pi5-controller-template
+spec:
+  template:
+    spec:
+      hardwareSelector:
+        model: RaspberryPi5
+      imageURL: "https://cdimage.ubuntu.com/releases/24.04.3/release/ubuntu-24.04.3-preinstalled-server-arm64+raspi.img.xz"
+---
+apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+kind: KubeadmControlPlane
+metadata:
+  name: kubernetes-lab-control-plane
+spec:
+  replicas: 3
+  version: v1.31.0
+  machineTemplate:
+    infrastructureRef:
+      apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+      kind: TinkerbellMachineTemplate
+      name: pi5-controller-template
+  kubeadmConfigSpec:
+    clusterConfiguration:
+      controllerManager: {}
+      scheduler: {}
+    initConfiguration:
+      nodeRegistration:
+        kubeletExtraArgs:
+          cloud-provider: external
