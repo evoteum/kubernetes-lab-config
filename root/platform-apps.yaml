@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kubernetes-lab-root
+  name: kubernetes-lab-platform
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/evoteum/kubernetes-lab-config.git
     targetRevision: main
-    path: applications
+    path: components
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

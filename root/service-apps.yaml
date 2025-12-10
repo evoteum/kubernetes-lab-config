@@ -1,22 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cilium
+  name: kubernetes-lab-services
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://helm.cilium.io/
-    chart: cilium
-    targetRevision: 1.18.4
-    helm:
-      releaseName: cilium
-      values:
-        valueFiles:
-          - ../../values/cilium.yaml
+    repoURL: https://github.com/evoteum/kubernetes-lab-services.git
+    targetRevision: main
+    path: applications
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-system
+    namespace: default
   syncPolicy:
     automated:
       prune: true
