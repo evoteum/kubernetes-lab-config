@@ -1,3 +1,6 @@
 # Components
 
-Platform component manifests (CAPI, Tinkerbell, etc.)
+Platform component manifests, such as,
+- GatewayAPI
+- MetalLB
+
