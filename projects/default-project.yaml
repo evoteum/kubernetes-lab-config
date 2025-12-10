@@ -5,22 +5,15 @@ metadata:
   namespace: argocd
 spec:
   description: Default project for platform and workload applications.
-
-  # Repositories allowed for source
   sourceRepos:
     - https://github.com/evoteum/kubernetes-lab-config.git
     - https://github.com/evoteum/kubernetes-lab-services.git
-
-  # Destinations allowed for deployment
   destinations:
     - namespace: "*"
       server: https://kubernetes.default.svc
-
-  # Allow all cluster-scoped resources
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
-
   namespaceResourceWhitelist:
     - group: "*"
       kind: "*"
