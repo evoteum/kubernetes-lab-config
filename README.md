@@ -44,18 +44,14 @@ Provides configuration manifests to allow services to run in the cluster.
 
 [//]: # (TOCGEN_TABLE_OF_CONTENTS_START)
 
-1. [Security](#security)
-1. [Background](#background)
-1. [Install](#install)
-1. [Usage](#usage)
-1. [Any extra sections as required]
-1. [Documentation](#documentation)
-1. [Repository Configuration](#repository-configuration)
-1. [API](#api)
-1. [Maintainers](#maintainers)
-1. [Thanks](#thanks)
-1. [Contributing](#contributing)
-1. [License](#license)
+- [Install](#install)
+- [Usage](#usage)
+- [Documentation](#documentation)
+- [Repository Configuration](#repository-configuration)
+- [Contributing](#contributing)
+- [License](#license)
+    - [Code](#code)
+    - [Non-code content](#non-code-content)
 
 [//]: # (TOCGEN_TABLE_OF_CONTENTS_END)
 
