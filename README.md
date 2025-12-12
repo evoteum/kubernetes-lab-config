@@ -35,12 +35,14 @@ Cluster Configuration
 [//]: # (Must not have its own title)
 [//]: # (A detailed description of the repo)
 
-
+Provides configuration manifests to allow services to run in the cluster.
 
 ## Table of Contents
 
 [//]: # (REQUIRED)
 [//]: # (Delete as appropriate)
+
+[//]: # (TOCGEN_TABLE_OF_CONTENTS_START)
 
 1. [Security](#security)
 1. [Background](#background)
@@ -54,6 +56,8 @@ Cluster Configuration
 1. [Thanks](#thanks)
 1. [Contributing](#contributing)
 1. [License](#license)
+
+[//]: # (TOCGEN_TABLE_OF_CONTENTS_END)
 
 [//]: # (## Security)
 [//]: # (OPTIONAL)
