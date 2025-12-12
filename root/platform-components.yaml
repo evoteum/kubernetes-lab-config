@@ -1,0 +1,67 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: platform-components
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: metallb
+            wave: "0"
+            sourceType: "helm"
+            repoURL: "https://metallb.github.io/metallb"
+            chart: "metallb"
+            revision: "0.15.3"
+            namespace: "metallb-system"
+
+          - name: metallb-config
+            wave: "1"
+            sourceType: "git"
+            repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
+            path: "components/metallb"
+            revision: "main"
+            namespace: "metallb-system"
+
+          - name: gateway-api
+            wave: "0"
+            sourceType: "helm"
+            repoURL: "oci://ghcr.io/nicklasfrahm/charts"
+            chart: "gateway-api"
+            revision: "0.2.0"
+            namespace: "gateway-api-system"
+
+          - name: gateway-api-config
+            wave: "1"
+            sourceType: "git"
+            repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
+            path: "components/gatewayapi"
+            revision: "main"
+            namespace: "gateway-api-system"
+
+  template:
+    metadata:
+      name: "{{name}}"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "{{wave}}"
+
+    spec:
+      project: default
+
+      source:
+        repoURL: "{{repoURL}}"
+        targetRevision: "{{revision}}"
+        chart: "{{chart}}"
+        path: "{{path}}"
+        helm:
+          releaseName: "{{name}}"
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
