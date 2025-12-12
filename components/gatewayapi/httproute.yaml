@@ -8,7 +8,7 @@ spec:
     - name: main-gateway
       namespace: gateway-api-system
   hostnames:
-    - "argocd.example.com"
+    - "argocd.production.k8s.evoteum.com"
   rules:
     - backendRefs:
         - name: argocd-server
