@@ -1,24 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: platform-components-helm
+  name: platform-components-config
   namespace: argocd
 spec:
   generators:
     - list:
         elements:
-          - name: metallb
-            wave: "0"
-            repoURL: "https://metallb.github.io/metallb"
-            chart: "metallb"
-            revision: "0.15.3"
+          - name: metallb-config
+            wave: "1"
+            repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
+            path: "components/metallb"
+            revision: "main"
             namespace: "metallb-system"
 
-          - name: gateway-api
-            wave: "0"
-            repoURL: "oci://ghcr.io/nicklasfrahm/charts"
-            chart: "gateway-api"
-            revision: "0.2.0"
+          - name: gateway-api-config
+            wave: "1"
+            repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
+            path: "components/gatewayapi"
+            revision: "main"
             namespace: "gateway-api-system"
 
   template:
@@ -32,9 +32,7 @@ spec:
       source:
         repoURL: "{{repoURL}}"
         targetRevision: "{{revision}}"
-        chart: "{{chart}}"
-        helm:
-          releaseName: "{{name}}"
+        path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{namespace}}"
