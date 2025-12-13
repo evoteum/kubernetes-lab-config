@@ -15,7 +15,7 @@ spec:
             namespace: "metallb-system"
 
           - name: gateway-api-config
-            wave: "1"
+            wave: "0"
             repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
             path: "components/gatewayapi"
             revision: "main"
