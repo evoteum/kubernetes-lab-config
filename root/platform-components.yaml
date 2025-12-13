@@ -14,13 +14,6 @@ spec:
             revision: "0.15.3"
             namespace: "metallb-system"
 
-          - name: gateway-api
-            wave: "0"
-            repoURL: "oci://ghcr.io/nicklasfrahm/charts"
-            chart: "gateway-api"
-            revision: "0.2.0"
-            namespace: "gateway-api-system"
-
   template:
     metadata:
       name: "{{name}}"
