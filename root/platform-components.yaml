@@ -31,8 +31,8 @@ spec:
       project: default
       source:
         repoURL: "{{repoURL}}"
-        targetRevision: "{{revision}}"
         chart: "{{chart}}"
+        targetRevision: "{{revision}}"
         helm:
           releaseName: "{{name}}"
       destination:
@@ -42,3 +42,5 @@ spec:
         automated:
           prune: true
           selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
