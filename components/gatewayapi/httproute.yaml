@@ -9,6 +9,8 @@ spec:
       namespace: gateway-api-system
   hostnames:
     - "argocd.production.k8s.evoteum.com"
+    - "monica.production.k8s.evoteum.com"
+    - "babybuddy.production.k8s.evoteum.com"
   rules:
     - backendRefs:
         - name: argo-argocd-server
