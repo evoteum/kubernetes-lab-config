@@ -14,6 +14,13 @@ spec:
             revision: "0.15.3"
             namespace: "metallb-system"
 
+          - name: longhorn
+            wave: "1"
+            repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
+            path: "components/longhorn"
+            revision: "main"
+            namespace: "longhorn-system"
+
   template:
     metadata:
       name: "{{name}}"
