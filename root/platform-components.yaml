@@ -14,12 +14,12 @@ spec:
             revision: "0.15.3"
             namespace: "metallb-system"
 
-          - name: longhorn
-            wave: "1"
+          - name: rook
+            wave: "0"
             repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
-            path: "components/longhorn"
+            path: "components/rook"
             revision: "main"
-            namespace: "longhorn-system"
+            namespace: "rook-ceph"
 
   template:
     metadata:
