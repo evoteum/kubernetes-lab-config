@@ -17,7 +17,7 @@ spec:
 
           - name: ceph-operator
             wave: "0"
-            repoURL: https://charts.rook.io/release
+            repoURL: "https://charts.rook.io/release/"
             chart: rook-ceph
             revision: "v1.18.8"
             namespace: rook-ceph
@@ -26,7 +26,7 @@ spec:
 
           - name: ceph-cluster
             wave: "1"
-            repoURL: https://charts.rook.io/release
+            repoURL: "https://charts.rook.io/release/"
             chart: rook-ceph-cluster
             targetRevision: v1.18.8
             namespace: rook-ceph
