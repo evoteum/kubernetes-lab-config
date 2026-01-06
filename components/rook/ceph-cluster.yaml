@@ -16,12 +16,12 @@ spec:
     useAllNodes: false
     useAllDevices: false
     nodes:
-      - name: k8s-04
+      - name: k8s-07
         devices:
-          - name: nvme0n1
-      - name: k8s-05
+          - name: /dev/disk/by-id/usb-SanDisk_Extreme_XXXX
+      - name: k8s-08
         devices:
-          - name: nvme0n1
-      - name: k8s-06
+          - name: /dev/disk/by-id/usb-SanDisk_Extreme_YYYY
+      - name: k8s-09
         devices:
-          - name: nvme0n1
+          - name: /dev/disk/by-id/usb-SanDisk_Extreme_ZZZZ

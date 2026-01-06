@@ -13,13 +13,25 @@ spec:
             chart: "metallb"
             revision: "0.15.3"
             namespace: "metallb-system"
+            docsURL: "https://metallb.io/configuration/"
 
-          - name: rook
+          - name: ceph-operator
             wave: "0"
-            repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
-            path: "components/rook"
-            revision: "main"
-            namespace: "rook-ceph"
+            repoURL: https://charts.rook.io/release
+            chart: rook-ceph
+            revision: "v1.18.8"
+            namespace: rook-ceph
+            docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/operator-chart/"
+            prune: true
+
+          - name: ceph-cluster
+            wave: "1"
+            repoURL: https://charts.rook.io/release
+            chart: rook-ceph-cluster
+            targetRevision: v1.18.8
+            namespace: rook-ceph
+            docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/ceph-cluster-chart/"
+            prune: false
 
   template:
     metadata:
@@ -27,6 +39,7 @@ spec:
       namespace: argocd
       annotations:
         argocd.argoproj.io/sync-wave: "{{wave}}"
+        docsURL: "{{docsURL}}"
     spec:
       project: default
       source:
@@ -40,7 +53,7 @@ spec:
         namespace: "{{namespace}}"
       syncPolicy:
         automated:
-          prune: true
+          prune: {{prune}}
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
