@@ -7,13 +7,24 @@ spec:
   generators:
     - list:
         elements:
-          - name: metallb
+          - name: ceph-operator
             wave: "0"
-            repoURL: "https://metallb.github.io/metallb"
-            chart: "metallb"
-            revision: "0.15.3"
-            namespace: "metallb-system"
-            docsURL: "https://metallb.io/configuration/"
+            repoURL: "https://github.com/evoteum/kubernetes-lab-config"
+            chart: charts/rook-ceph
+            revision: "v1.18.8"
+            namespace: rook-ceph
+            docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/operator-chart/"
+            prune: true
+
+          - name: ceph-cluster
+            wave: "1"
+            repoURL: "https://github.com/evoteum/kubernetes-lab-config"
+            path: charts/rook-ceph-cluster
+            targetRevision: "v1.18.8"
+            namespace: rook-ceph
+            docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/ceph-cluster-chart/"
+            prune: false
+
   template:
     metadata:
       name: "{{name}}"
@@ -25,7 +36,7 @@ spec:
       project: default
       source:
         repoURL: "{{repoURL}}"
-        chart: "{{chart}}"
+        path: "{{path}}"
         targetRevision: "{{revision}}"
         helm:
           releaseName: "{{name}}"

@@ -8,14 +8,6 @@ spec:
     - list:
         elements:
 
-          - name: rook
-            wave: "0"
-            repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
-            path: "components/rook"
-            revision: "main"
-            namespace: "rook-ceph"
-            prune: true
-
           - name: gateway-api-config
             wave: "0"
             repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
@@ -29,6 +21,14 @@ spec:
             path: "components/metallb"
             revision: "main"
             namespace: "metallb-system"
+
+          - name: rook
+            wave: "3"
+            repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
+            path: "components/rook"
+            revision: "main"
+            namespace: "rook-ceph"
+            prune: true
 
   template:
     metadata:
