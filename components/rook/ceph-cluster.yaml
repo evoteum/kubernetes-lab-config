@@ -16,12 +16,8 @@ spec:
     useAllNodes: false
     useAllDevices: false
     nodes:
-      - name: k8s-07
+      - selector:
+          matchLabels:
+            node-role.evoteum.dev/storage: "storage"
         devices:
-          - name: /dev/disk/by-id/usb-SanDisk_Extreme_XXXX
-      - name: k8s-08
-        devices:
-          - name: /dev/disk/by-id/usb-SanDisk_Extreme_YYYY
-      - name: k8s-09
-        devices:
-          - name: /dev/disk/by-id/usb-SanDisk_Extreme_ZZZZ
+          - name: /dev/disk/by-id/wwn-0x5057440000000001

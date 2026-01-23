@@ -22,6 +22,15 @@ spec:
             revision: "main"
             namespace: "metallb-system"
 
+          - name: rook
+            wave: "3"
+            repoURL: "https://github.com/evoteum/kubernetes-lab-config.git"
+            path: "components/rook"
+            revision: "main"
+            namespace: "rook-ceph"
+            prune: true
+
+
   template:
     metadata:
       name: "{{name}}"
