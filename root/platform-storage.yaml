@@ -14,7 +14,6 @@ spec:
             revision: "v1.18.8"
             namespace: rook-ceph
             docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/operator-chart/"
-            prune: true
 
           - name: ceph-cluster
             wave: "1"
@@ -23,7 +22,6 @@ spec:
             targetRevision: "v1.18.8"
             namespace: rook-ceph
             docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/ceph-cluster-chart/"
-            prune: false
 
   template:
     metadata:
@@ -45,7 +43,7 @@ spec:
         namespace: "{{namespace}}"
       syncPolicy:
         automated:
-          prune: {{prune}}
+          prune: true
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
