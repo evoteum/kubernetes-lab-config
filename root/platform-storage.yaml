@@ -11,7 +11,7 @@ spec:
             wave: "0"
             repoURL: "https://github.com/evoteum/kubernetes-lab-config"
             chart: charts/rook-ceph
-            revision: "v1.18.8"
+            revision: main
             namespace: rook-ceph
             docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/operator-chart/"
 
@@ -19,7 +19,7 @@ spec:
             wave: "1"
             repoURL: "https://github.com/evoteum/kubernetes-lab-config"
             path: charts/rook-ceph-cluster
-            revision: "v1.18.8"
+            revision: main
             namespace: rook-ceph
             docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/ceph-cluster-chart/"
 
