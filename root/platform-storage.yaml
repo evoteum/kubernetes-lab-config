@@ -10,7 +10,7 @@ spec:
           - name: ceph-operator
             wave: "0"
             repoURL: "https://github.com/evoteum/kubernetes-lab-config"
-            chart: charts/rook-ceph
+            path: charts/rook-ceph
             revision: main
             namespace: rook-ceph
             docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/operator-chart/"
