@@ -15,7 +15,7 @@
 apiVersion: ceph.rook.io/v1
 kind: CephCluster
 metadata:
-  name: rook-ceph
+  name: ceph-cluster-main
   namespace: rook-ceph
 spec:
   cephVersion:
