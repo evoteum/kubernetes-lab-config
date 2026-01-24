@@ -19,7 +19,7 @@ spec:
             wave: "1"
             repoURL: "https://github.com/evoteum/kubernetes-lab-config"
             path: charts/rook-ceph-cluster
-            targetRevision: "v1.18.8"
+            revision: "v1.18.8"
             namespace: rook-ceph
             docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/ceph-cluster-chart/"
 
