@@ -1,0 +1,37 @@
+####################################################################
+############################# WARNING! #############################
+####################################################################
+#
+#  !!!  Deleting this file will result in a REALLY bad day!  !!!
+#
+# Go away, get a coffee, reconsider your life choices.
+#
+# If, after that, you still want to destroy this resource, see
+#
+# https://github.com/evoteum/policy/docs/destroying_dangerous_kubernetes_resources.md
+#
+####################################################################
+
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    image: quay.io/ceph/ceph:v19.2.3
+  dataDirHostPath: /var/lib/rook
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+  dashboard:
+    enabled: true
+  storage:
+    useAllNodes: false
+    useAllDevices: false
+    nodes:
+      - selector:
+          matchLabels:
+            node-role.evoteum.dev/storage: "storage"
+        devices:
+          - name: /dev/disk/by-id/wwn-0x5057440000000001
