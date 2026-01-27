@@ -60,10 +60,17 @@ Provides configuration manifests to allow services to run in the cluster.
 [//]: # (May go here if it is important to highlight security concerns.)
 
 
-
-[//]: # (## Background)
+## Background
 [//]: # (OPTIONAL)
 [//]: # (Explain the motivation and abstract dependencies for this repo)
+
+This provides all the tooling necessary to make the cluster usable, such as,
+- Rook
+- Crossplane
+- MetalLB
+
+Installation of off-the-shelf tools is done via the kubernetes-lab-services repository.
+
 
 ## Install
 
@@ -71,13 +78,14 @@ Provides configuration manifests to allow services to run in the cluster.
 [//]: # (OPTIONAL IF documentation repo)
 [//]: # (ELSE REQUIRED)
 
-
+Nothing to install, GitOps FTW!
 
 ## Usage
 [//]: # (REQUIRED)
 [//]: # (Explain what the thing does. Use screenshots and/or videos.)
 
-
+Ansible configures ArgoCD to look at the [root](root) directory, where you will find the root applications. These point
+to their applicable directories, except the helm application which points at our kubernetes-lab-services repository.
 
 [//]: # (Extra sections)
 [//]: # (OPTIONAL)
