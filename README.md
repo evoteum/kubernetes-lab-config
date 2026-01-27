@@ -44,6 +44,7 @@ Provides configuration manifests to allow services to run in the cluster.
 
 [//]: # (TOCGEN_TABLE_OF_CONTENTS_START)
 
+- [Background](#background)
 - [Install](#install)
 - [Usage](#usage)
 - [Documentation](#documentation)
