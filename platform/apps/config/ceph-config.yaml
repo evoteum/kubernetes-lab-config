@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ceph-config
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/evoteum/kubernetes-lab-config.git
+    targetRevision: main
+    path: platform/storage/ceph
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

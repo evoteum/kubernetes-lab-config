@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crossplane-config
+  namespace: argocd
+  annotations:
+    docsUrl: https://metallb.io/configuration/
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/evoteum/kubernetes-lab-config.git
+    path: platform/control-plane/crossplane
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: crossplane
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-operator
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/operator-chart"
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/evoteum/kubernetes-lab-config"
+    path: "charts/rook-operator"
+    targetRevision: main
+    helm:
+      releaseName: rook-ceph
+      skipCrds: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: rook-ceph
+  syncPolicy:
+    automated:
+      prune: false  # prune disabled intentionally. operator-managed CRDs must not be removed implicitly.
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

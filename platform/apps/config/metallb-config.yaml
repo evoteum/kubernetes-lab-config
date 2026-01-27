@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kubernetes-lab-cluster
+  name: metallb-config
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    docsUrl: https://metallb.io/configuration/
 spec:
   project: default
   source:
     repoURL: https://github.com/evoteum/kubernetes-lab-config.git
+    path: platform/networking/metallb
     targetRevision: main
-    path: clusters/kubernetes-lab
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: metallb-system
   syncPolicy:
     automated:
       prune: true

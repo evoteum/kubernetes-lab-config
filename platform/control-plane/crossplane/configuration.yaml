@@ -1,0 +1,6 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: configuration-quickstart
+spec:
+  package: xpkg.crossplane.io/crossplane-contrib/configuration-quickstart@sha256:ef9795d146190637351a5c5848e0bab5e0c190fec7780f6c426fbffa0cb68358
