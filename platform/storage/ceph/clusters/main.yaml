@@ -26,6 +26,13 @@ spec:
     allowMultiplePerNode: false
   dashboard:
     enabled: true
+  placement:
+    all:
+      tolerations:
+        - key: storage-only
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
   storage:
     useAllNodes: false
     useAllDevices: false
