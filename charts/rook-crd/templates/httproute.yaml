@@ -1,4 +1,4 @@
-{{- if dig "route" "dashboard" "host" "" .Values | trim -}}
+{{- if .Values.route.dashboard.host -}}
 ---
 kind: HTTPRoute
 apiVersion: gateway.networking.k8s.io/v1
