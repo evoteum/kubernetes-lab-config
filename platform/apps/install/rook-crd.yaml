@@ -4,7 +4,7 @@ metadata:
   name: rook-crd
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "1"
     docsURL: "https://rook.io/docs/rook/latest-release/Helm-Charts/ceph-cluster-chart/"
 spec:
   project: default

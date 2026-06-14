@@ -1,3 +1,4 @@
+{{- if .Values.cephCluster.enabled -}}
 ---
 apiVersion: ceph.rook.io/v1
 kind: CephCluster
@@ -24,3 +25,4 @@ spec:
     {{- end }}
   {{- end }}
   {{- .Values.cephClusterSpec | toYaml | nindent 2 }}
+{{- end }}
