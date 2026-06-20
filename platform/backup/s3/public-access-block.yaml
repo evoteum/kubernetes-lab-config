@@ -1,0 +1,14 @@
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketPublicAccessBlock
+metadata:
+  name: evoteum-lab-backup-302ca542646a4546
+spec:
+  forProvider:
+    bucket: evoteum-lab-backup-302ca542646a4546
+    region: eu-west-2
+    blockPublicAcls: true
+    blockPublicPolicy: true
+    ignorePublicAcls: true
+    restrictPublicBuckets: true
+  providerConfigRef:
+    name: aws-backup

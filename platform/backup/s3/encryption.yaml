@@ -1,0 +1,16 @@
+# Server-side encryption is defence-in-depth: Velero/Kopia already encrypts data
+# client-side before it leaves the cluster (see velero/externalsecret-repo-credentials.yaml).
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketServerSideEncryptionConfiguration
+metadata:
+  name: evoteum-lab-backup-302ca542646a4546
+spec:
+  forProvider:
+    bucket: evoteum-lab-backup-302ca542646a4546
+    region: eu-west-2
+    rule:
+      - applyServerSideEncryptionByDefault:
+          - sseAlgorithm: AES256
+        bucketKeyEnabled: true
+  providerConfigRef:
+    name: aws-backup

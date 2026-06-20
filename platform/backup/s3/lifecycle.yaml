@@ -1,0 +1,21 @@
+# Bucket versioning is intentionally NOT enabled: Velero/Kopia manages its own
+# retention via the schedule's backup TTL and issues real DeleteObject calls.
+# Versioning would turn those into delete markers and defeat the retention policy.
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketLifecycleConfiguration
+metadata:
+  name: evoteum-lab-backup-302ca542646a4546
+spec:
+  forProvider:
+    bucket: evoteum-lab-backup-302ca542646a4546
+    region: eu-west-2
+    rule:
+      - id: archive-to-deep-archive
+        status: Enabled
+        filter:
+          - prefix: ""
+        transition:
+          - days: 1
+            storageClass: DEEP_ARCHIVE
+  providerConfigRef:
+    name: aws-backup

@@ -1,0 +1,35 @@
+# Access is primarily controlled by IAM (the backup user's policy is scoped to this
+# bucket ARN only). This bucket policy adds defence-in-depth: refuse any request that
+# isn't over TLS. We deliberately avoid embedding the AWS account ID here (kept in
+# OpenBao) since it isn't needed for a same-account-only TLS-enforcement rule.
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketPolicy
+metadata:
+  name: evoteum-lab-backup-302ca542646a4546
+spec:
+  forProvider:
+    bucket: evoteum-lab-backup-302ca542646a4546
+    region: eu-west-2
+    policy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Sid": "DenyInsecureTransport",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+              "arn:aws:s3:::evoteum-lab-backup-302ca542646a4546",
+              "arn:aws:s3:::evoteum-lab-backup-302ca542646a4546/*"
+            ],
+            "Condition": {
+              "Bool": {
+                "aws:SecureTransport": "false"
+              }
+            }
+          }
+        ]
+      }
+  providerConfigRef:
+    name: aws-backup

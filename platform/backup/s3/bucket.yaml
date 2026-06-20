@@ -1,0 +1,12 @@
+# Bucket name includes a random suffix purely for S3's global-uniqueness requirement.
+# Not treated as secret: the bucket policy and IAM scoping are the actual access controls.
+# When this repo migrates to Flux, consider moving the name to a substituteFrom secret.
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: evoteum-lab-backup-302ca542646a4546
+spec:
+  forProvider:
+    region: eu-west-2
+  providerConfigRef:
+    name: aws-backup
