@@ -1,0 +1,12 @@
+apiVersion: platform.evoteum.com/v1alpha1
+kind: XCloudflareTunnel
+metadata:
+  name: itsbeginningtolookalotlikechristmas
+spec:
+  tunnelName: itsbeginningtolookalotlikechristmas
+  hostname: itsbeginningtolookalotlike.christmas
+  service: http://site.itsbeginningtolookalotlikechristmas.svc.cluster.local:8080
+  tunnelSecretSecretRef:
+    namespace: crossplane
+    name: ibtlallc-cloudflare-tunnel-secret
+    key: secret
