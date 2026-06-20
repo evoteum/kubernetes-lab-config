@@ -1,17 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: crossplane-config
+  name: tunnel-itsbeginningtolookalotlikechristmas
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-2"
-    docsUrl: https://docs.crossplane.io/v2.3/
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
   source:
     repoURL: https://github.com/evoteum/kubernetes-lab-config.git
-    path: platform/control-plane/crossplane
     targetRevision: main
+    path: platform/tunnel/itsbeginningtolookalotlikechristmas
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: crossplane

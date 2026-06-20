@@ -1,17 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: crossplane-config
+  name: backup-s3-config
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "-2"
-    docsUrl: https://docs.crossplane.io/v2.3/
 spec:
   project: default
   source:
     repoURL: https://github.com/evoteum/kubernetes-lab-config.git
-    path: platform/control-plane/crossplane
+    path: platform/backup/s3
     targetRevision: main
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: crossplane
