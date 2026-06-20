@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: velero
+  namespace: argocd
+  annotations:
+    docsUrl: https://velero.io/docs/main/
+spec:
+  project: default
+  source:
+    repoURL: https://vmware-tanzu.github.io/helm-charts
+    chart: velero
+    targetRevision: 9.2.0
+    helm:
+      values: |
+        initContainers:
+          - name: velero-plugin-for-aws
+            image: velero/velero-plugin-for-aws:v1.14.1
+            imagePullPolicy: IfNotPresent
+            volumeMounts:
+              - mountPath: /target
+                name: plugins
+        credentials:
+          useSecret: true
+          existingSecret: velero-cloud-credentials
+        configuration:
+          backupStorageLocation:
+            - name: aws-eu-west-2
+              provider: aws
+              bucket: evoteum-lab-backup-302ca542646a4546
+              default: true
+              config:
+                region: eu-west-2
+          volumeSnapshotLocation: []
+          uploaderType: kopia
+        deployNodeAgent: true
+        schedules:
+          daily:
+            schedule: "0 2 * * *"
+            template:
+              ttl: "72h0m0s"
+              snapshotVolumes: false
+              defaultVolumesToFsBackup: true
+              storageLocation: aws-eu-west-2
+              includedNamespaces:
+                - "*"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: velero
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
