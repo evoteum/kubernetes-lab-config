@@ -79,7 +79,38 @@ Installation of off-the-shelf tools is done via the kubernetes-lab-services repo
 [//]: # (OPTIONAL IF documentation repo)
 [//]: # (ELSE REQUIRED)
 
-Nothing to install, GitOps FTW!
+Almost nothing to install (GitOps FTW!) with one exception.
+
+### OpenBao initialisation
+
+OpenBao must be initialised manually once after first deployment. This is an
+unavoidable bootstrap step: the initialisation process generates unseal keys and
+a root token that cannot be committed to git or managed declaratively without a
+pre-existing secret store.
+
+Run [`scripts/init-openbao.sh`](scripts/init-openbao.sh), which calls
+`bao operator init` against `openbao-0` and walks you through unsealing all 3
+pods. **Save every line of the init output (5 unseal keys + root token)
+somewhere secure and offline before continuing** — losing them after this point
+makes everything in OpenBao permanently unrecoverable.
+
+```bash
+./scripts/init-openbao.sh
+```
+
+OpenBao uses Shamir secret sharing with no auto-unseal configured, so unseal
+state lives in each pod's memory independently — there's no single API call
+that unseals the whole cluster. This means **the unseal step has to be
+repeated by hand after every pod restart** (upgrades, reschedules, crashes),
+not just the first time. The script's unseal loop can be re-run on its own for
+that — answer "n" when it asks about running init again. The standard fix for
+this friction is auto-unseal via a cloud KMS, but that has its own bootstrap
+problem here (you'd need AWS credentials to create the KMS key, but need
+OpenBao initialised to store AWS credentials) — worth revisiting once the
+cluster is past initial bootstrap.
+
+Everything after initialisation — auth methods, policies, secrets engines, and
+secrets — is managed via GitOps.
 
 ## Usage
 [//]: # (REQUIRED)
@@ -98,7 +129,8 @@ to their applicable directories, except the helm application which points at our
 
 ## Documentation
 
-Further documentation is in the [`docs`](docs/) directory.
+Further documentation is in the [`docs`](docs/) directory, including
+[disaster recovery backup setup](docs/backup.md) (manual AWS/OpenBao bootstrap steps).
 
 ## Repository Configuration
 
