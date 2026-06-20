@@ -46,6 +46,7 @@ Provides configuration manifests to allow services to run in the cluster.
 
 - [Background](#background)
 - [Install](#install)
+    - [OpenBao initialisation](#openbao-initialisation)
 - [Usage](#usage)
 - [Documentation](#documentation)
 - [Repository Configuration](#repository-configuration)
