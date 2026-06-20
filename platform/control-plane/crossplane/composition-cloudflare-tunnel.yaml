@@ -1,0 +1,107 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: cloudflare-tunnel
+spec:
+  compositeTypeRef:
+    apiVersion: platform.evoteum.com/v1alpha1
+    kind: XCloudflareTunnel
+  resources:
+    - name: tunnel
+      base:
+        apiVersion: zerotrust.cloudflare.crossplane.io/v1alpha1
+        kind: ZeroTrustTunnelCloudflared
+        spec:
+          providerConfigRef:
+            name: cloudflare
+          forProvider:
+            configSrc: cloudflare
+      patches:
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: accountId
+          toFieldPath: spec.forProvider.accountId
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.tunnelName
+          toFieldPath: spec.forProvider.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.tunnelSecretSecretRef.namespace
+          toFieldPath: spec.forProvider.tunnelSecretSecretRef.namespace
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.tunnelSecretSecretRef.name
+          toFieldPath: spec.forProvider.tunnelSecretSecretRef.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.tunnelSecretSecretRef.key
+          toFieldPath: spec.forProvider.tunnelSecretSecretRef.key
+        # Publish the tunnel UUID to composite status so tunnel-config and
+        # dns-cname can use it without knowing the tunnel resource's name.
+        - type: ToCompositeFieldPath
+          fromFieldPath: status.atProvider.id
+          toFieldPath: status.tunnelId
+      readinessChecks:
+        - type: NonEmpty
+          fieldPath: status.atProvider.id
+
+    - name: tunnel-config
+      base:
+        apiVersion: zerotrust.cloudflare.crossplane.io/v1alpha1
+        kind: ZeroTrustTunnelCloudflaredConfig
+        spec:
+          providerConfigRef:
+            name: cloudflare
+          forProvider:
+            config:
+              ingress:
+                - hostname: placeholder
+                  service: placeholder
+                - service: http_status:404
+      patches:
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: accountId
+          toFieldPath: spec.forProvider.accountId
+        # The Cloudflare API identifies tunnel config by tunnel UUID, so the
+        # external-name must match. Required policy blocks creation until the
+        # tunnel resource is ready and has published its UUID.
+        - type: FromCompositeFieldPath
+          fromFieldPath: status.tunnelId
+          toFieldPath: metadata.annotations[crossplane.io/external-name]
+          policy:
+            fromFieldPath: Required
+        - type: FromCompositeFieldPath
+          fromFieldPath: status.tunnelId
+          toFieldPath: spec.forProvider.tunnelId
+          policy:
+            fromFieldPath: Required
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.hostname
+          toFieldPath: spec.forProvider.config.ingress[0].hostname
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.service
+          toFieldPath: spec.forProvider.config.ingress[0].service
+
+    - name: dns-cname
+      base:
+        apiVersion: dns.cloudflare.crossplane.io/v1alpha1
+        kind: DNSRecord
+        spec:
+          providerConfigRef:
+            name: cloudflare
+          forProvider:
+            type: CNAME
+            proxied: true
+      patches:
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: zoneIdItsBeginningToLookALotLikeChristmas
+          toFieldPath: spec.forProvider.zoneId
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.hostname
+          toFieldPath: spec.forProvider.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: status.tunnelId
+          toFieldPath: spec.forProvider.content
+          policy:
+            fromFieldPath: Required
+          transforms:
+            - type: string
+              string:
+                type: Format
+                fmt: "%s.cfargotunnel.com"

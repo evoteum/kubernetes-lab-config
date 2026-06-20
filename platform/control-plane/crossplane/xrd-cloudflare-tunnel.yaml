@@ -1,0 +1,52 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xcloudflaretunnels.platform.evoteum.com
+spec:
+  group: platform.evoteum.com
+  names:
+    kind: XCloudflareTunnel
+    plural: xcloudflaretunnels
+  claimNames:
+    kind: CloudflareTunnel
+    plural: cloudflaretunnels
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required:
+                - tunnelName
+                - hostname
+                - service
+                - tunnelSecretSecretRef
+              properties:
+                tunnelName:
+                  type: string
+                hostname:
+                  type: string
+                  description: Public hostname; used for tunnel ingress routing and the apex CNAME record
+                service:
+                  type: string
+                  description: Backend cluster service URL (e.g. http://site.namespace.svc.cluster.local:8080)
+                tunnelSecretSecretRef:
+                  type: object
+                  required: [namespace, name, key]
+                  properties:
+                    namespace:
+                      type: string
+                    name:
+                      type: string
+                    key:
+                      type: string
+            status:
+              type: object
+              properties:
+                tunnelId:
+                  type: string
+                  description: Cloudflare tunnel UUID — populated automatically after tunnel creation

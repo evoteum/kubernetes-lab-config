@@ -1,0 +1,7 @@
+apiVersion: apiextensions.crossplane.io/v1alpha1
+kind: EnvironmentConfig
+metadata:
+  name: cloudflare
+data:
+  accountId: bb07c5e310c811c8f6eb58f50a7c2782
+  zoneIdItsBeginningToLookALotLikeChristmas: 8007b9c07595e1f3fea92332637ebedc
