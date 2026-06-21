@@ -6,6 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-2"
     docsUrl: https://docs.crossplane.io/v2.3/
+    bumpCount: 1
 spec:
   project: default
   source:
