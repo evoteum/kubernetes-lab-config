@@ -1,0 +1,4 @@
+version: v0.45.0
+files:
+  - https://github.com/operator-framework/operator-lifecycle-manager/releases/download/{version}/crds.yaml
+  - https://github.com/operator-framework/operator-lifecycle-manager/releases/download/{version}/olm.yaml
