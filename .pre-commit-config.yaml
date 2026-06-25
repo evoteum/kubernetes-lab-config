@@ -1,0 +1,5 @@
+repos:
+  - repo: https://github.com/evoteum/pre-commit-hooks
+    rev: main
+    hooks:
+      - id: vendor-files
